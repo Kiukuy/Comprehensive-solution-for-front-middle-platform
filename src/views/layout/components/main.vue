@@ -3,7 +3,7 @@ import {} from 'vue'
 </script>
 
 <template>
-  <div>MAIN</div>
+  <router-view></router-view>
 </template>
 
 <style lang="scss" scoped></style>

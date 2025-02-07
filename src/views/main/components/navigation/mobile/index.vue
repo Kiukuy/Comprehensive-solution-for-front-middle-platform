@@ -3,13 +3,6 @@ import { useScroll } from '@vueuse/core'
 import { ref, onBeforeUpdate, watch } from 'vue'
 import menuVue from '@/views/main/components/menu/index.vue'
 
-defineProps({
-  data: {
-    type: Array,
-    required: true
-  }
-})
-
 // 滑块
 const sliderStyle = ref({
   transform: 'translateX(0px)',
@@ -70,7 +63,7 @@ const isOpenPopup = ref(false)
       </li>
       <!-- items -->
       <li
-        v-for="(item, index) in data"
+        v-for="(item, index) in $store.getters.categorys"
         :key="item.id"
         class="shrink-0 px-1.5 py-0.5 z-10 duration-200 last:mr-4"
         :class="{
@@ -83,7 +76,7 @@ const isOpenPopup = ref(false)
       </li>
     </ul>
     <m-popup v-model="isOpenPopup">
-      <menu-vue :categorys="data" @onItemClick="onItemClick"></menu-vue>
+      <menu-vue @onItemClick="onItemClick"></menu-vue>
     </m-popup>
   </div>
 </template>
