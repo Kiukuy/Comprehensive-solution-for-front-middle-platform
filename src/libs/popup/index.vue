@@ -44,6 +44,7 @@ watch(
 </template>
 
 <style lang="scss" scoped>
+// fade 展示动画
 .fade-enter-active,
 .fade-leave-active {
   transition: all 0.3s;
@@ -52,8 +53,13 @@ watch(
 .fade-leave-to {
   opacity: 0;
 }
+// popup-down-up 展示动画
 .popup-down-up-enter-active,
 .popup-down-up-leave-active {
   transition: all 0.3s;
+}
+.popup-down-up-enter-from,
+.popup-down-up-leave-to {
+  transform: translateY(100%);
 }
 </style>
