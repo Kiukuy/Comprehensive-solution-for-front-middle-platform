@@ -16,7 +16,7 @@ const onJumpPath = (target) => {
 <template>
   <div class="w-[140px] overflow-hidden">
     <div
-      class="flex items-center p-1 cursor-pointer rounded hover:bg-zinc-100/60"
+      class="flex items-center p-1 cursor-pointer rounded hover:bg-zinc-100/60 dark:hover:bg-zinc-800"
       v-for="(item, index) in popData"
       :key="item.id ? item.id : index"
       @click="onJumpPath(item)"
@@ -24,9 +24,11 @@ const onJumpPath = (target) => {
       <m-svg-icon
         :name="item.icon"
         class="w-1.5 h-1.5 mr-1"
-        fillClass="fill-zinc-900"
+        fillClass="fill-zinc-900 dark:fill-zinc-300"
       ></m-svg-icon>
-      <span class="text-zinc-800 text-sm">{{ item.title }}</span>
+      <span class="text-zinc-800 text-sm dark:text-zinc-300">{{
+        item.title
+      }}</span>
     </div>
   </div>
 </template>

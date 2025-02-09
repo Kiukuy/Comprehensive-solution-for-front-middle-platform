@@ -34,7 +34,7 @@ watch(
         <div
           v-if="visible"
           v-bind="$attrs"
-          class="fixed z-50 w-screen bg-white bottom-0"
+          class="fixed z-50 w-screen bg-white dark:bg-zinc-800 bottom-0"
         >
           <slot></slot>
         </div>
