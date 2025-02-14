@@ -30,7 +30,7 @@ const menuArr = [
         class="guide-my relative flex items-center p-0.5 rounded-sm cursor-pointer duration-200 outline-none hover:bg-zinc-100 dark:hover:bg-zinc-900"
       >
         <!-- 头像 -->
-        <img src="@/assets/images/InTp.jpg" class="w-3 h-3 rounded-sm" />
+        <img v-lazy src="@/assets/images/InTp.jpg" class="w-3 h-3 rounded-sm" />
         <!-- 下箭头 -->
         <m-svg-icon
           name="down-arrow"

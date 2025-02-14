@@ -17,6 +17,7 @@ const onToHome = () => {
   >
     <div class="flex items-center">
       <img
+        v-lazy
         class="h-4 cursor-pointer mr-2"
         src="@/assets/images/SeeYouSquare.png"
         @click="onToHome"
