@@ -8,14 +8,13 @@ export default {
   mounted(el) {
     // 1. 拿到当前 img 标签的 src
     const imgSrc = el.src
-    console.log(el.src)
-
     // 2. 把 img 标签的 src 替换为本地地址，也可以替换为空或者一个透明的图片
     el.src = imgReplace
 
     const { stop } = useIntersectionObserver(el, ([{ isIntersecting }]) => {
       if (isIntersecting) {
         el.src = imgSrc
+        // 加载图片之后停止监听
         stop()
       }
     })
