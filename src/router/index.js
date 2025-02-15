@@ -3,6 +3,8 @@ import { isMobileTerminal } from '@/utils/flexible'
 import mobileTerminalRoutes from './modules/mobile-routes'
 import pcTerminalRoutes from './modules/pc-routes'
 import { computed, watch } from 'vue'
+import store from '@/store'
+import { ALL_CATEGORY_ITEM } from '@/constants'
 
 const routesType = computed(() => {
   return isMobileTerminal.value ? mobileTerminalRoutes : pcTerminalRoutes
@@ -17,6 +19,8 @@ const router = createRouter({
 // 重置路由
 const whiteList = []
 const resetRouter = () => {
+  // 重置 app 数据
+  store.commit('app/changeCurrentCategory', ALL_CATEGORY_ITEM)
   // 获取当前所有路由
   const routes = router
     .getRoutes()
