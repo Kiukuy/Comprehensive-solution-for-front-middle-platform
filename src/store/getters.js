@@ -16,5 +16,12 @@ export default {
       (item) => item.id === getters.currentCategory.id
     )
   },
-  historys: (state) => state.search.historys
+  /**
+   * 搜索历史
+   */
+  historys: (state) => state.search.historys,
+  /**
+   * 搜索文本
+   */
+  searchText: (state) => state.app.searchText
 }

@@ -10,8 +10,13 @@ const inputValue = ref('')
 
 // 搜索的回调事件
 const onSearchHandler = (val) => {
-  store.commit('search/addHistory', val)
   inputValue.value = val
+  if (val) {
+    // 触发 historys 变化
+    store.commit('search/addHistory', val)
+    // 触发 searchText 变化
+    store.commit('app/changeSearchText', val)
+  }
 }
 </script>
 
