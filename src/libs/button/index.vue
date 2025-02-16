@@ -32,6 +32,8 @@ const sizeEnum = {
 
 <script setup>
 import { computed } from 'vue'
+import mSvgIcon from '../svg-icon/index.vue'
+
 const props = defineProps({
   // icon 图标名字
   icon: String,
