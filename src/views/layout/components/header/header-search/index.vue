@@ -1,14 +1,36 @@
 <script setup>
 import { ref } from 'vue'
+import hintVue from './hint.vue'
+import historyVue from './history.vue'
+import { useStore } from 'vuex'
 
+const store = useStore()
 const inputValue = ref('')
+
+// 搜索的回调事件
+const onSearchHandler = (val) => {
+  store.commit('search/addHistory', val)
+  inputValue.value = val
+}
 </script>
 
 <template>
   <div class="w-full">
-    <m-search v-model="inputValue">
+    <m-search v-model="inputValue" @search="onSearchHandler">
       <template #dropdown>
-        <div>dropdown</div>
+        <div>
+          <!-- 搜索提示 -->
+          <hint-vue
+            :searchText="inputValue"
+            v-show="inputValue"
+            @itemClick="onSearchHandler"
+          ></hint-vue>
+          <!-- 最近搜索 -->
+          <history-vue
+            v-show="!inputValue"
+            @itemClick="onSearchHandler"
+          ></history-vue>
+        </div>
       </template>
     </m-search>
   </div>
