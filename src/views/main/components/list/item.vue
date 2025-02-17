@@ -1,6 +1,9 @@
 <script setup>
 import { randomRGB } from '@/utils/color.js'
-defineProps({
+import { saveAs } from 'file-saver'
+import { message } from '@/libs'
+
+const props = defineProps({
   data: {
     type: Object,
     required: true
@@ -9,6 +12,21 @@ defineProps({
     type: Number
   }
 })
+
+/**
+ * 下载按钮点击事件
+ */
+const onDownload = () => {
+  // 提示消息
+  message('success', '图片开始下载')
+  // 延迟一段时间执行，可以得到更好的体验
+  setTimeout(() => {
+    /**
+     * 1. 下载的图片链接
+     */
+    saveAs(props.data.photo)
+  }, 100)
+}
 </script>
 
 <template>
@@ -44,6 +62,7 @@ defineProps({
           size="small"
           icon="download"
           iconClass="fill-zinc-900 dark:fill-zinc-200"
+          @click="onDownload"
         ></m-button>
         <!-- 全屏 -->
         <m-button
