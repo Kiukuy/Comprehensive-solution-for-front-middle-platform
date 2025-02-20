@@ -4,7 +4,7 @@ import { getPexelsList } from '@/api/pexels'
 import itemVue from './item.vue'
 import { isMobileTerminal } from '@/utils/flexible.js'
 import { useStore } from 'vuex'
-import pinsVue from '../../../pins/components/pins.vue'
+import PinsVue from '../../../pins/components/pins.vue'
 import { useEventListener } from '@vueuse/core'
 import gsap from 'gsap'
 

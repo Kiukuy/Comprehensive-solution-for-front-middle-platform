@@ -33,7 +33,7 @@ const onPop = () => {
 
 <template>
   <div
-    class="fixed left-0 top-0 w-screen h-screen z-20 backdrop-blur-4xl bg-white pb-2 overflow-y-auto xl:p-2"
+    class="fixed left-0 top-0 w-screen h-screen z-20 backdrop-blur-4xl bg-white dark:bg-zinc-800 pb-2 overflow-y-auto xl:p-2"
   >
     <!-- 移动端下展示 navbar -->
     <m-navbar v-if="isMobileTerminal" :clickLeft="onPop" :clickRight="onPop">
