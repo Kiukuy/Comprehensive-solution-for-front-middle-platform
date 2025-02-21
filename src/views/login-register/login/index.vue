@@ -5,7 +5,7 @@ export default {
 </script>
 
 <script setup>
-import {} from 'vue'
+import { ref } from 'vue'
 import headerVue from '../components/header.vue'
 import {
   Field as VeeField,
@@ -13,12 +13,56 @@ import {
   ErrorMessage as VeeErrorMessage
 } from 'vee-validate'
 import { validateUsername, validatePassowrd } from '../validate'
+import SliderCaptchaVue from './slider-captcha.vue'
+import { LOGIN_TYPE_USERNAME } from '@/constants'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+
+const store = useStore()
+const router = useRouter()
+
+// 控制 sliderCaptcha 展示
+const isSliderCaptchaVisible = ref(false)
 
 /**
  * 登录触发
  */
 const onLoginHandler = () => {
-  console.log('触发登录')
+  isSliderCaptchaVisible.value = true
+}
+
+/**
+ * 人类行为验证通过
+ */
+const onCaptchaSuccess = () => {
+  isSliderCaptchaVisible.value = false
+  // 登录操作
+  onLogin()
+}
+
+// 用户输入的用户名和密码
+const loginForm = ref({
+  username: '',
+  password: ''
+})
+
+// 登录时的 loading
+const loading = ref(false)
+/**
+ * 用户登录行为
+ */
+const onLogin = async () => {
+  loading.value = true
+  // 执行登录操作
+  try {
+    await store.dispatch('user/login', {
+      ...loginForm.value,
+      loginType: LOGIN_TYPE_USERNAME
+    })
+  } finally {
+    loading.value = false
+  }
+  router.push('/')
 }
 </script>
 
@@ -45,6 +89,7 @@ const onLoginHandler = () => {
           type="text"
           autocomplete="on"
           :rules="validateUsername"
+          v-model="loginForm.username"
         />
         <vee-error-message
           class="text-sm text-red-600 block mt-0.5 text-left"
@@ -57,6 +102,7 @@ const onLoginHandler = () => {
           type="password"
           autocomplete="on"
           :rules="validatePassowrd"
+          v-model="loginForm.password"
         />
         <vee-error-message
           class="text-sm text-red-600 block mt-0.5 text-left"
@@ -74,6 +120,7 @@ const onLoginHandler = () => {
         <m-button
           class="w-full dark:bg-zinc-900 xl:dark:bg-zinc-800"
           :isActiveAnim="false"
+          :loading="loading"
         >
           登录
         </m-button>
@@ -86,6 +133,12 @@ const onLoginHandler = () => {
         <m-svg-icon class="w-4 cursor-pointer" name="wexin"></m-svg-icon>
       </div>
     </div>
+    <!-- 人类行为验证模块 -->
+    <slider-captcha-vue
+      v-if="isSliderCaptchaVisible"
+      @close="isSliderCaptchaVisible = false"
+      @success="onCaptchaSuccess"
+    ></slider-captcha-vue>
   </div>
 </template>
 
