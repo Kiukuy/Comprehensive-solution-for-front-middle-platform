@@ -19,15 +19,18 @@ import {
   validateConfirmPassword
 } from '../validate'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import { LOGIN_TYPE_USERNAME } from '@/constants'
 
 const router = useRouter()
+const store = useStore()
 
 // 跳转到登录界面
 const onToLogin = () => {
   router.push('/login')
 }
 
-// 用户输入的用户名和密码
+// 数据源
 const regForm = ref({
   username: '',
   password: '',
@@ -38,6 +41,32 @@ const regForm = ref({
  * 插入规则
  */
 defineRule('validateConfirmPassword', validateConfirmPassword)
+
+// loading
+const loading = ref(false)
+
+/**
+ * 触发注册
+ */
+const onRegister = async () => {
+  loading.value = true
+  try {
+    const payload = {
+      username: regForm.value.username,
+      password: regForm.value.password
+    }
+    // 触发注册
+    await store.dispatch('user/register', payload)
+    // 注册成功，触发登录
+    await store.dispatch('user/login', {
+      ...payload,
+      loginType: LOGIN_TYPE_USERNAME
+    })
+  } finally {
+    loading.value = false
+  }
+  router.push('/')
+}
 </script>
 
 <template>
@@ -55,7 +84,7 @@ defineRule('validateConfirmPassword', validateConfirmPassword)
         账号登录
       </h3>
       <!-- 表单 -->
-      <vee-form>
+      <vee-form @submit="onRegister">
         <!-- 用户名 -->
         <vee-field
           class="border-b-zinc-400 border-b-[1px] w-full outline-0 pb-1 px-1 text-base dark:bg-zinc-800 dark:text-zinc-400 focus:border-b-main dark:focus:border-b-zinc-200 xl:dark:bg-zinc-900"
@@ -120,6 +149,7 @@ defineRule('validateConfirmPassword', validateConfirmPassword)
         <m-button
           class="w-full dark:bg-zinc-900 xl:dark:bg-zinc-800"
           :isActiveAnim="false"
+          :loading="loading"
         >
           立即注册
         </m-button>

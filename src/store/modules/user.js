@@ -1,4 +1,4 @@
-import { loginUser, getProfile } from '@/api/sys'
+import { registerUser, loginUser, getProfile } from '@/api/sys'
 import md5 from 'md5'
 import { message } from '@/libs'
 
@@ -25,6 +25,16 @@ export default {
     }
   },
   actions: {
+    /**
+     * 注册
+     */
+    async register(context, payload) {
+      const { password } = payload
+      const data = await registerUser({
+        ...payload,
+        password: password ? md5(password) : ''
+      })
+    },
     /**
      * 登录
      */
