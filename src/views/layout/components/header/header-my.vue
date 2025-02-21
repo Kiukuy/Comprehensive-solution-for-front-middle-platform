@@ -1,8 +1,11 @@
 <script setup>
 import {} from 'vue'
 import { useRouter } from 'vue-router'
+import { confirm } from '@/libs'
+import { useStore } from 'vuex'
 
 const router = useRouter()
+const store = useStore()
 
 // 构建 menu 数据源
 const menuArr = [
@@ -29,6 +32,22 @@ const menuArr = [
 // 进入登录
 const onToLogin = () => {
   router.push('/login')
+}
+
+/**
+ * menu Item 点击事件，也可以根据其他的 key 作为判定，比如 name
+ */
+const onItemClick = (item) => {
+  // 有路径则进行路径跳转
+  if (item.path) {
+    router.push(item.path)
+    return
+  }
+  // 无路径则为退出登录
+  confirm('您确定要退出登录吗？').then(() => {
+    // 退出登录不存在跳转路径
+    store.dispatch('user/logout')
+  })
 }
 </script>
 
@@ -67,7 +86,11 @@ const onToLogin = () => {
         ></m-button>
       </div>
     </template>
-    <m-popbox v-if="$store.getters.token" :popData="menuArr"></m-popbox>
+    <m-popbox
+      v-if="$store.getters.token"
+      :popData="menuArr"
+      @click="onItemClick"
+    ></m-popbox>
   </m-popover>
 </template>
 
