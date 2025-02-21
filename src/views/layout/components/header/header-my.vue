@@ -36,11 +36,15 @@ const onToLogin = () => {
   <m-popover class="flex items-center" placement="bottom-left">
     <template #reference>
       <div
-        v-if="false"
+        v-if="$store.getters.token"
         class="guide-my relative flex items-center p-0.5 rounded-sm cursor-pointer duration-200 outline-none hover:bg-zinc-100 dark:hover:bg-zinc-900"
       >
         <!-- 头像 -->
-        <img v-lazy src="@/assets/images/InTp.jpg" class="w-3 h-3 rounded-sm" />
+        <img
+          v-lazy
+          :src="$store.getters.userInfo.avatar"
+          class="w-3 h-3 rounded-sm"
+        />
         <!-- 下箭头 -->
         <m-svg-icon
           name="down-arrow"
@@ -49,6 +53,7 @@ const onToLogin = () => {
         ></m-svg-icon>
         <!-- vip 标记 -->
         <m-svg-icon
+          v-if="$store.getters.userInfo.vipLevel"
           name="vip"
           class="w-1.5 h-1.5 absolute right-[16px] bottom-0"
         ></m-svg-icon>
@@ -62,7 +67,7 @@ const onToLogin = () => {
         ></m-button>
       </div>
     </template>
-    <m-popbox v-if="false" :popData="menuArr"></m-popbox>
+    <m-popbox v-if="$store.getters.token" :popData="menuArr"></m-popbox>
   </m-popover>
 </template>
 
