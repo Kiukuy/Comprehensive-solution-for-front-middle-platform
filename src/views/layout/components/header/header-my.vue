@@ -52,7 +52,11 @@ const onItemClick = (item) => {
 </script>
 
 <template>
-  <m-popover class="flex items-center" placement="bottom-left">
+  <m-popover
+    class="flex items-center"
+    placement="bottom-left"
+    :hiddenPop="$store.getters.token ? false : true"
+  >
     <template #reference>
       <div
         v-if="$store.getters.token"

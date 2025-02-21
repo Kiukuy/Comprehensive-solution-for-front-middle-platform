@@ -33,6 +33,11 @@ const props = defineProps({
       }
       return result
     }
+  },
+  // 显示是否展示气泡
+  hiddenPop: {
+    type: Boolean,
+    default: false
   }
 })
 const emits = defineEmits(['click'])
@@ -44,6 +49,7 @@ let timeout = null
 const isVisible = ref(false)
 // 鼠标移入的触发行为
 const onMouseenter = () => {
+  if (props.hiddenPop) return
   isVisible.value = true
   // 再次触发时，清理延时装置
   if (timeout) {
@@ -52,6 +58,7 @@ const onMouseenter = () => {
 }
 // 鼠标移出的触发行为
 const onMouseleave = () => {
+  if (props.hiddenPop) return
   // 延时装置
   timeout = setTimeout(() => {
     isVisible.value = false
