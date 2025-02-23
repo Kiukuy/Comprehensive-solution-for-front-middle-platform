@@ -5,12 +5,13 @@ export default {
 </script>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { isMobileTerminal } from '@/utils/flexible'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { confirm, message } from '@/libs'
 import { putProfile } from '@/api/sys'
+import changeAvatarVue from './components/change-avatar.vue'
 
 const router = useRouter()
 const store = useStore()
@@ -31,10 +32,20 @@ const onAvatarClick = () => {
   inputFileTarget.value.click()
 }
 
+const isDialogVisible = ref(false)
+const currentBlob = ref('')
+
 /**
  * 头像选择之后的回调
  */
-const onSelectImgHandler = () => {}
+const onSelectImgHandler = () => {
+  // 获取选中的文件
+  const imgFile = inputFileTarget.value.files[0]
+  // 生成 blod 对象
+  const blob = URL.createObjectURL(imgFile)
+  currentBlob.value = blob
+  isDialogVisible.value = true
+}
 
 /**
  * 移动端：退出登录
@@ -68,6 +79,12 @@ const onChangeProfile = async () => {
   store.commit('user/setUserInfo', userInfo.value)
   loading.value = false
 }
+
+watch(isDialogVisible, (val) => {
+  if (!val) {
+    inputFileTarget.value.value = null
+  }
+})
 </script>
 
 <template>
@@ -203,6 +220,24 @@ const onChangeProfile = async () => {
         >
       </div>
     </div>
+    <!-- PC 端 -->
+    <m-dialog v-if="!isMobileTerminal" v-model="isDialogVisible">
+      <change-avatar-vue
+        :blob="currentBlob"
+        @close="isDialogVisible = false"
+      ></change-avatar-vue>
+    </m-dialog>
+    <!-- 移动端：在展示时指定高度 -->
+    <m-popup
+      v-else
+      :class="{ 'h-screen': isDialogVisible }"
+      v-model="isDialogVisible"
+    >
+      <change-avatar-vue
+        :blob="currentBlob"
+        @close="isDialogVisible = false"
+      ></change-avatar-vue>
+    </m-popup>
   </div>
 </template>
 
