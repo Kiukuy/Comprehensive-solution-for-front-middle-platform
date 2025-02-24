@@ -17,6 +17,7 @@ import SliderCaptchaVue from './slider-captcha.vue'
 import { LOGIN_TYPE_USERNAME } from '@/constants'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import { message } from '@/libs'
 
 const store = useStore()
 const router = useRouter()
@@ -59,10 +60,12 @@ const onLogin = async () => {
       ...loginForm.value,
       loginType: LOGIN_TYPE_USERNAME
     })
+    router.push('/')
+  } catch (error) {
+    message('warn', error.message)
   } finally {
     loading.value = false
   }
-  router.push('/')
 }
 
 // 跳转到注册界面

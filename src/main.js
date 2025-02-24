@@ -8,6 +8,7 @@ import mLibs from './libs'
 import mDirectives from './directives'
 import 'virtual:svg-icons-register'
 import useTheme from './utils/theme'
+import './permission'
 
 // 初始化主题
 useTheme()
