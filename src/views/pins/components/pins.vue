@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { getPexelsFormId } from '@/api/pexels.js'
 import { isMobileTerminal } from '@/utils/flexible.js'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 const props = defineProps({
   id: {
@@ -12,6 +13,7 @@ const props = defineProps({
 })
 
 const router = useRouter()
+const store = useStore()
 
 const pexelData = ref({})
 /**
@@ -27,6 +29,7 @@ getPexelData()
  * 关闭按钮处理事件
  */
 const onPop = () => {
+  store.commit('app/changeRouterType', 'back')
   router.back()
 }
 </script>

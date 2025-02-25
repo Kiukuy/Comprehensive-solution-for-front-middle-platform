@@ -70,6 +70,7 @@ const onLogin = async () => {
 
 // 跳转到注册界面
 const onToRegister = () => {
+  store.commit('app/changeRouterType', 'push')
   router.push('/register')
 }
 </script>

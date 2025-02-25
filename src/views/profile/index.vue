@@ -20,6 +20,7 @@ const store = useStore()
  * 移动端后退处理
  */
 const onNavbarLeftClick = () => {
+  store.commit('app/changeRouterType', 'back')
   router.back()
 }
 

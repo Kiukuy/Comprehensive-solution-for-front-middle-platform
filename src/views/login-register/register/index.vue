@@ -27,6 +27,7 @@ const store = useStore()
 
 // 跳转到登录界面
 const onToLogin = () => {
+  store.commit('app/changeRouterType', 'push')
   router.push('/login')
 }
 
