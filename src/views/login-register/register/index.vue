@@ -1,9 +1,3 @@
-<script>
-export default {
-  name: 'register'
-}
-</script>
-
 <script setup>
 import { ref } from 'vue'
 import headerVue from '../components/header.vue'

@@ -8,7 +8,7 @@ import { useStore } from 'vuex'
 const props = defineProps({
   id: {
     type: String,
-    reuired: true
+    required: true
   }
 })
 

@@ -128,8 +128,9 @@ onMounted(() => {
 })
 
 onActivated(() => {
-  if (containerTarget.value.offsetWidth === 1280 && columnWidth.value === 240)
+  if (!isNaN(columnWidth.value)) {
     return
+  }
   useColumnWidth()
 })
 
