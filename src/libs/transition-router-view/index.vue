@@ -44,17 +44,33 @@ const transitionName = ref('')
 router.beforeEach((to, from) => {
   transitionName.value = props.routerType
 })
+
+// 处理动画状态变化
+const isAnimation = ref(false)
+const beforeEnter = () => {
+  isAnimation.value = true
+}
+const afterLeave = () => {
+  isAnimation.value = false
+}
 </script>
 
 <template>
   <!-- 路由出口 -->
   <router-view v-slot="{ Component }">
     <!-- 动画组件 -->
-    <transition :name="transitionName">
+    <transition
+      :name="transitionName"
+      @before-enter="beforeEnter"
+      @after-leave="afterLeave"
+    >
       <!-- keep-alive 缓存组件 -->
       <!-- component 动态组件 -->
       <keep-alive>
-        <component :is="Component"></component>
+        <component
+          :class="{ '!fixed top-0 left-0 w-screen z-50': isAnimation }"
+          :is="Component"
+        ></component>
       </keep-alive>
     </transition>
   </router-view>

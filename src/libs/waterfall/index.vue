@@ -1,6 +1,14 @@
 <script setup>
 import { useWindowSize } from '@vueuse/core'
-import { ref, computed, onMounted, watch, nextTick, onUnmounted } from 'vue'
+import {
+  ref,
+  computed,
+  onMounted,
+  watch,
+  nextTick,
+  onUnmounted,
+  onActivated
+} from 'vue'
 import {
   getAllImg,
   getImgElements,
@@ -117,6 +125,12 @@ onMounted(() => {
       immediate: true
     }
   )
+})
+
+onActivated(() => {
+  if (containerTarget.value.offsetWidth === 1280 && columnWidth.value === 240)
+    return
+  useColumnWidth()
 })
 
 // item 高度集合
