@@ -35,14 +35,36 @@ const props = defineProps({
   }
 })
 
+// 任务栈
+const virtualTaskStack = ref([props.mainComponentName])
+/**
+ * 清空栈
+ */
+const clearTask = () => {
+  virtualTaskStack.value = [props.mainComponentName]
+}
+
 const router = useRouter()
 // 跳转动画
 const transitionName = ref('')
 /**
- * router 的前置守卫
+ * router 的前置守卫，监听路由的变化
  */
 router.beforeEach((to, from) => {
+  // 进入首页默认清空栈
+  if (to.name === props.mainComponentName) {
+    transitionName.value = ROUTER_TYPER_BACK
+    clearTask()
+    return
+  }
   transitionName.value = props.routerType
+  if (props.routerType === ROUTER_TYPER_PUSH) {
+    // 入栈
+    virtualTaskStack.value.push(to.name)
+  } else if (props.routerType === ROUTER_TYPER_BACK) {
+    // 出栈
+    virtualTaskStack.value.pop()
+  }
 })
 
 // 处理动画状态变化
@@ -66,7 +88,7 @@ const afterLeave = () => {
     >
       <!-- keep-alive 缓存组件 -->
       <!-- component 动态组件 -->
-      <keep-alive>
+      <keep-alive :include="virtualTaskStack">
         <component
           :class="{ '!fixed top-0 left-0 w-screen z-50': isAnimation }"
           :is="Component"
