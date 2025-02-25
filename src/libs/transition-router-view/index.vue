@@ -12,6 +12,7 @@ const ROUTER_TYPER_ENUM = [NONE, ROUTER_TYPER_PUSH, ROUTER_TYPER_BACK]
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { isMobileTerminal } from '@/utils/flexible'
 
 const props = defineProps({
   // 路由跳转的类型，对应 ROUTER_TYPER_ENUM
@@ -53,7 +54,7 @@ const transitionName = ref('')
 router.beforeEach((to, from) => {
   // 进入首页默认清空栈
   if (to.name === props.mainComponentName) {
-    transitionName.value = ROUTER_TYPER_BACK
+    transitionName.value = isMobileTerminal.value ? ROUTER_TYPER_BACK : NONE
     clearTask()
     return
   }
