@@ -5,6 +5,7 @@ import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import { getVipPayList } from '@/api/pay'
 import payMenuItemVue from './components/pay-menu-item.vue'
+import paymentVue from './components/payment/index.vue'
 
 /**
  * 选中支付项
@@ -38,7 +39,7 @@ const onNavbarLeftClick = () => {
 <template>
   <div class="h-full bg-zinc-200 dark:bg-zinc-800 duration-500 xl:pt-1">
     <div
-      class="max-w-screen-lg mx-auto bg-white dark:bg-zinc-900 duration-500 xl:rounded-sm xl:dark:bg-zinc-600 xl:border-[1px] xl:px-4"
+      class="max-w-screen-lg mx-auto bg-white dark:bg-zinc-900 duration-500 xl:rounded-sm xl:border-zinc-200 xl:dark:border-zinc-600 xl:border-[1px] xl:px-4"
     >
       <!-- 移动端 navbar 处理 -->
       <m-navbar v-if="isMobileTerminal" sticky :clickLeft="onNavbarLeftClick"
@@ -68,7 +69,7 @@ const onNavbarLeftClick = () => {
         </div>
         <p class="mt-1 text-sm text-zinc-500">{{ currentPayData.desc }}</p>
         <!-- 支付 -->
-        <m-count-down :time="1000 * 60"></m-count-down>
+        <payment-vue class="mt-4"></payment-vue>
       </div>
     </div>
   </div>
