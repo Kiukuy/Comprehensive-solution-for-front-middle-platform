@@ -16,7 +16,11 @@ import { ref, onActivated } from 'vue'
 const store = useStore()
 const router = useRouter()
 
-const onVipClick = () => {}
+// 移动端 Vip 的点击跳转
+const onVipClick = () => {
+  store.commit('app/changeRouterType', 'push')
+  router.push('/member')
+}
 
 // 移动端 My 的点击跳转
 const onMyClick = () => {
