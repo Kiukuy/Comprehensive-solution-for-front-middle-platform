@@ -11,7 +11,7 @@ const props = defineProps({
   },
   textClass: {
     type: String,
-    default: 'text-zinc-900 dark:zinc-200'
+    default: 'text-zinc-900 dark:text-zinc-200'
   },
   to: {
     type: String

@@ -68,13 +68,14 @@ onActivated(() => {
         v-if="$store.getters.token"
         icon="vip"
         iconClass="fill-zinc-400 dark:fill-zinc-500"
-        textClass="text-zinc-400 dark:fill-zinc-500"
+        textClass="text-zinc-400 dark:text-zinc-500"
         @click="onVipClick"
         >VIP</m-trigger-menu-item
       >
       <m-trigger-menu-item
         icon="profile"
         iconClass="fill-zinc-400 dark:fill-zinc-500"
+        textClass="text-zinc-400 dark:text-zinc-500"
         @click="onMyClick"
         >{{ $store.getters.token ? '我的' : '去登录' }}</m-trigger-menu-item
       >
