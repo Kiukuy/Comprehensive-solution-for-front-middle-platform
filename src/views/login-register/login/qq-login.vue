@@ -33,6 +33,8 @@ onMounted(() => {
       }
       // 完成跨页传输
       broadcast.send(oauthObj)
+      // 针对于移动端而言：通过移动端触发 QQ 登录会展示三个页面，原页面、QQ 吊起页面、回调页面。并且移动端一个页面展示整屏内容，且无法直接通过 window.close() 关闭，所以在移动端中，我们需要在当前页面继续进行后续操作。
+      oauthLogin(LOGIN_TYPE_QQ, oauthObj)
       // 在 PC 端下，关闭第三方窗口
       window.close()
     }
