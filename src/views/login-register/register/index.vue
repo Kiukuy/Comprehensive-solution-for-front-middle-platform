@@ -12,11 +12,12 @@ import {
   validatePassowrd,
   validateConfirmPassword
 } from '../validate'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { LOGIN_TYPE_USERNAME } from '@/constants'
 
 const router = useRouter()
+const route = useRoute()
 const store = useStore()
 
 // 跳转到登录界面
@@ -51,7 +52,10 @@ const onRegister = async () => {
       password: regForm.value.password
     }
     // 触发注册
-    await store.dispatch('user/register', payload)
+    await store.dispatch('user/register', {
+      ...payload,
+      ...route.query
+    })
     // 注册成功，触发登录
     await store.dispatch('user/login', {
       ...payload,
