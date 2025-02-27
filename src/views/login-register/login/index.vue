@@ -18,6 +18,7 @@ import { LOGIN_TYPE_USERNAME } from '@/constants'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import { message } from '@/libs'
+import qqLoginVue from './qq-login.vue'
 
 const store = useStore()
 const router = useRouter()
@@ -140,7 +141,7 @@ const onToRegister = () => {
       <!-- 第三方登录 -->
       <div class="flex justify-around mt-4">
         <!-- QQ -->
-        <m-svg-icon class="w-4 cursor-pointer" name="qq"></m-svg-icon>
+        <qq-login-vue></qq-login-vue>
         <!-- 微信 -->
         <m-svg-icon class="w-4 cursor-pointer" name="wexin"></m-svg-icon>
       </div>
