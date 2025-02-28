@@ -16,6 +16,6 @@ router.beforeEach((to, from) => {
   }
 
   // 未登录，警告然后返回页面
-  message('warn', '登录失效，请重新登陆！')
+  message('warn', '登录失效，请重新登录！')
   return '/'
 })
