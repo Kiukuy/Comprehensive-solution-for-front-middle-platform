@@ -4,6 +4,7 @@ import { getPexelsFormId } from '@/api/pexels.js'
 import { isMobileTerminal } from '@/utils/flexible.js'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+import { weiboShare } from '@/utils/share'
 
 const props = defineProps({
   id: {
@@ -32,14 +33,28 @@ const onPop = () => {
   store.commit('app/changeRouterType', 'back')
   router.back()
 }
+
+/**
+ * 分享按钮点击处理
+ */
+const onShareClick = () => {
+  weiboShare(
+    pexelData.value.photo,
+    `https://imooc-front.lgdsunday.club/pins/${pexelData.value.id}`
+  )
+}
 </script>
 
 <template>
   <div
-    class="fixed left-0 top-0 w-screen h-screen z-20 backdrop-blur-4xl bg-white dark:bg-zinc-800 pb-2 overflow-y-auto xl:p-2"
+    class="fixed left-0 top-0 w-screen h-screen z-20 backdrop-blur-4xl bg-white dark:bg-zinc-800 pb-2 overflow-y-auto xl:p-2 xl:bg-transparent"
   >
     <!-- 移动端下展示 navbar -->
-    <m-navbar v-if="isMobileTerminal" :clickLeft="onPop" :clickRight="onPop">
+    <m-navbar
+      v-if="isMobileTerminal"
+      :clickLeft="onPop"
+      :clickRight="onShareClick"
+    >
       {{ pexelData.title }}
       <template #right>
         <m-svg-icon
@@ -74,6 +89,7 @@ const onPop = () => {
             name="share"
             class="w-4 h-4 p-1 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-800 duration-300 rounded"
             fillClass="fill-zinc-900 dark:fill-zinc-200"
+            @click="onShareClick"
           ></m-svg-icon>
 
           <m-button

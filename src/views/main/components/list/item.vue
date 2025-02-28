@@ -4,6 +4,7 @@ import { saveAs } from 'file-saver'
 import { message } from '@/libs'
 import { useElementBounding, useFullscreen } from '@vueuse/core'
 import { computed, ref } from 'vue'
+import { weiboShare } from '@/utils/share'
 
 const props = defineProps({
   data: {
@@ -63,6 +64,16 @@ const onToPinsClick = () => {
     location: imgContainerCenter.value
   })
 }
+
+/**
+ * 分享按钮点击处理
+ */
+const onShareClick = () => {
+  weiboShare(
+    props.data.photo,
+    `https://imooc-front.lgdsunday.club/pins/${props.data.id}`
+  )
+}
 </script>
 
 <template>
@@ -85,7 +96,9 @@ const onToPinsClick = () => {
         class="hidden opacity-0 w-full h-full bg-zinc-900/50 absolute top-0 left-0 rounded duration-300 group-hover:opacity-100 xl:block"
       >
         <!-- 分享 -->
-        <m-button class="absolute top-1.5 left-1.5">分享</m-button>
+        <m-button class="absolute top-1.5 left-1.5" @click="onShareClick"
+          >分享</m-button
+        >
         <!-- 点赞 -->
         <m-button
           class="absolute top-1.5 right-1.5"
