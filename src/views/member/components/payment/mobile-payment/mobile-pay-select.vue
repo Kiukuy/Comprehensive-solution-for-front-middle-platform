@@ -1,7 +1,16 @@
 <script setup>
-import {} from 'vue'
+import { alipay } from '@/utils/pay'
 
-const emits = defineEmits(['onItemClick'])
+const props = defineProps({
+  payData: {
+    required: true,
+    type: Object
+  }
+})
+
+const onAliPayClick = () => {
+  alipay(props.payData.title, props.payData.desc)
+}
 </script>
 
 <template>
@@ -12,7 +21,7 @@ const emits = defineEmits(['onItemClick'])
     <!-- 支付宝 -->
     <div
       class="flex items-center px-2 py-2 border-b border-b-zinc-200 dark:border-b-zinc-600 active:bg-zinc-200 dark:active:bg-zinc-900"
-      @click="$emit('onItemClick')"
+      @click="onAliPayClick"
     >
       <img src="@/assets/images/alipay.png" alt="" class="w-4 h-4" />
       <p class="text-xl ml-1 text-zinc-800 dark:text-zinc-200">支付宝</p>
