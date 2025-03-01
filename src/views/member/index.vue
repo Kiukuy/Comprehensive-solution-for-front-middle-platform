@@ -69,7 +69,7 @@ const onNavbarLeftClick = () => {
         </div>
         <p class="mt-1 text-sm text-zinc-500">{{ currentPayData.desc }}</p>
         <!-- 支付 -->
-        <payment-vue class="mt-4"></payment-vue>
+        <payment-vue class="mt-4" :payData="currentPayData"></payment-vue>
       </div>
     </div>
   </div>
